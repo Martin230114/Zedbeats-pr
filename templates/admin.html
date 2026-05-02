@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<meta name="viewport"; content="device-width,initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  }
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+.top-nav h2 {
+  margin: 0;
+  font-weight: bold;
+  letter-spacing: 1px;
+  }
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  }
+
+.nav-links a {
+  text-decoration: none;
+  color: #ccc;
+  transition: 0.3s;
+  }
+
+.nav-links a:hover {
+  color: white;
+  }
+
+.sign-in-btn {
+  background: linear-gradient(45deg, #FFD700, #FFC300);
+  color: black;
+  padding: 8px 15px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  }
+.main {
+  padding: 30px;
+  }
+
+.panel {
+  background: rgba(255,255,255,0.08);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+
+  border: 1px solid rgba(255,255,255,0.1);
+  }
+
+.panel h3 {
+  margin-bottom: 15px;
+  color: #FFD700;
+  }
+
+.panel input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  }
+
+.panel button {
+  width: 100%;
+  padding: 12px;
+
+  border: none;
+  border-radius: 25px;
+
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: black;
+
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  }
+
+.panel button:hover {
+  transform: scale(1.03);
+  }
+
+
+.panel a {
+  color: #FFD700;
+  text-decoration: none;
+  }
+</style>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+  <!-- Top Nav -->
+  <div class="top-nav">
+    <h2>Zed-Beats</h2>
+
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/media">Media</a>
+    </div>
+
+    <a href="/logout" class="sign-in-btn">Logout</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+
+    <div class="panel">
+      <h3>Upload Music / Video</h3>
+
+      <form action="/admin/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h3>Admin Actions</h3>
+
+      <a href="/reset">Change Password</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

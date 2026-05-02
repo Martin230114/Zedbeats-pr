@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<meta name="viewport"; content="width=device-width,initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  }
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #3BA99C;
+  padding: 10px 15px;
+  color: white;
+  }
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  }
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  }
+
+.main {
+  padding: 20px;
+  }
+
+.media-item {
+  background: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  }
+
+.media-item p {
+  margin: 0;
+  font-weight: bold;
+  }
+
+.media-item a {
+  text-decoration: none;
+  background: #1F5F5F;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 15px;
+  margin-left: 10px;
+  }
+</style>
+  <title>Music</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="top-nav">
+  <h2>Zed-Beats</h2>
+
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/media">Media</a>
+    <a href="/login">Admin</a>
+  </div>
+</div>
+
+<div class="main">
+  <h3>Music</h3>
+<div class="media-item">
+  <p>{{ file }}</p>
+
+  <div class="actions">
+    <a href="/media/music/{{ file }}">Play</a>
+    <a href="{{ url_for('static', filename='uploads/' + file) }}" download>
+      Download
+    </a>
+  </div>
+</div>
+      </a>
+    </div>
+  {% endfor %}
+</div>
+
+</body>
+</html>

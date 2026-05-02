@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+/* Base */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+}
+
+/* Top nav */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.top-nav h2 {
+  margin: 0;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: grey;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: black;
+}
+
+/* Admin button (logout) */
+.sign-in-btn {
+  background: linear-gradient(45deg, #FFD700, #FFC300);
+  color: black;
+  padding: 8px 15px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Main layout */
+.main {
+  padding: 30px;
+}
+
+/* Panels (glass effect) */
+.panel {
+  background: rgba(255,255,255,0.08);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Panel titles */
+.panel h3 {
+  margin-bottom: 15px;
+  color: #FFD700;
+}
+
+/* Inputs */
+.panel input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+/* Upload button */
+.panel button {
+  width: 100%;
+  padding: 12px;
+
+  border: none;
+  border-radius: 25px;
+
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: black;
+
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  }
+
+.panel button:hover {
+  transform: scale(1.03);
+  }
+
+.panel a {
+  color: #FFD700;
+  text-decoration: none;
+}
+.search-box {
+  background: #e0e0e0;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  }
+.search-box input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  margin-bottom: 10px;
+  }
+.search-box button {
+  background: #1F5F5F;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <h2>Zed-Beats</h2>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/media">Media</a>
+    <a href="/login">Admin</a>
+    <a href="/login" class="sign-in-btn">Post</a>
+  </div>
+</div>
+<div class="search-box">
+  <input type="text" name="search" placeholder="search"><br><br>
+  <button>Search</button>
+</div>
+</body>
+</html>

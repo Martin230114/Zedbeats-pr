@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<style>
+.admin-theme .section {
+  background: rgba(255,255,255,0.08);
+  padding: 25px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.admin-theme .section h3 {
+  color: #FFD700;
+}
+
+.admin-theme .section input {
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0;
+  border: none;
+  border-radius: 8px;
+}
+
+.admin-theme .section button {
+  width: 100%;
+  padding: 12px;
+
+  border: none;
+  border-radius: 25px;
+
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: black;
+  font-weight: bold;
+}
+</style>
+  <title>Upload Media</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="admin-theme">
+
+  <!-- Top Nav -->
+  <div class="top-nav">
+    <h2>Zed-Beats Admin</h2>
+
+    <div class="nav-links">
+      <a href="/admin">Dashboard</a>
+      <a href="/media">Media</a>
+    </div>
+
+    <a href="/login" class="sign-in-btn">Post</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+
+    <section class="section">
+      <h3>Upload Music or Video</h3>
+
+      <form method="POST" action="/admin/upload" enctype="multipart/form-data">
+      <input type="file" name="file" required>
+      <button type="submit">Upload</button>
+      </form>
+    </section>
+
+  </div>
+
+</body>
+</html>

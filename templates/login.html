@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<meta name="viewport"; content="width=device-width, initial-scale=1.0">
+  <title>Admin Login</title>
+<style>
+/* =========================
+   RESET PAGE (Login Style)
+========================= */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+
+  background: linear-gradient(135deg, #141e30, #243b55);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+}
+
+/* Main Center Layout */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+}
+
+/* Reset Form Box */
+.form-box {
+  background: rgba(255,255,255,0.08);
+
+  padding: 35px 25px;
+  width: 90%;
+  max-width: 380px;
+
+  border-radius: 15px;
+
+  text-align: center;
+
+  backdrop-filter: blur(12px);
+
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* Title */
+.form-box h2 {
+  margin-bottom: 25px;
+  color: #FFD700;
+  font-size: 28px;
+}
+
+/* Inputs */
+.form-box input {
+  width: 100%;
+
+  padding: 12px;
+  margin: 12px 0;
+
+  border: none;
+  outline: none;
+
+  border-radius: 8px;
+
+  box-sizing: border-box;
+}
+
+/* Button */
+.form-box button {
+  width: 100%;
+
+  padding: 12px;
+  margin-top: 15px;
+
+  border: none;
+  border-radius: 25px;
+
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+/* Button Hover */
+.form-box button:hover {
+  transform: scale(1.03);
+}
+
+/* Optional Links */
+.form-box a {
+  color: #FFD700;
+  text-decoration: none;
+  display: block;
+  margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+  <h2>Admin Login</h2>
+<div class="form-box">
+  <form method="POST" action="/login" onsubmit="return validateForm()">
+    <input type="text" name="username" placeholder="Username" required><br><br>
+
+<input type="password" name="password" placeholder="Password" required><br><br>    
+    <button type="submit">Sign in</button>
+</div>
+  </form>
+
+  <p id="error" style="color:red;"></p>
+
+  <script>
+    function validateForm() {
+      let user = document.getElementById("username").value;
+      let pass = document.getElementById("password").value;
+
+      if (user.trim() === "" || pass.trim() === "") {
+        document.getElementById("error").innerText = "Fill in all fields";
+        return false;
+      }
+      return true;
+    }
+  </script>
+
+</body>
+</html>
+ 

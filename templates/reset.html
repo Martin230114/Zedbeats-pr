@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<meta name="viewport"; content="width=device-width, inital-scale=1.0">
+<style>
+/* =========================
+   RESET PAGE (Login Style)
+========================= */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+
+  background: linear-gradient(135deg, #141e30, #243b55);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+}
+
+/* Main Center Layout */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+}
+
+/* Reset Form Box */
+.form-box {
+  background: rgba(255,255,255,0.08);
+
+  padding: 35px 25px;
+  width: 90%;
+  max-width: 380px;
+
+  border-radius: 15px;
+
+  text-align: center;
+
+  backdrop-filter: blur(12px);
+
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* Title */
+.form-box h2 {
+  margin-bottom: 25px;
+  color: #FFD700;
+  font-size: 28px;
+}
+
+/* Inputs */
+.form-box input {
+  width: 100%;
+
+  padding: 12px;
+  margin: 12px 0;
+
+  border: none;
+  outline: none;
+
+  border-radius: 8px;
+
+  box-sizing: border-box;
+}
+
+/* Button */
+.form-box button {
+  width: 100%;
+
+  padding: 12px;
+  margin-top: 15px;
+
+  border: none;
+  border-radius: 25px;
+
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+/* Button Hover */
+.form-box button:hover {
+  transform: scale(1.03);
+}
+
+/* Optional Links */
+.form-box a {
+  color: #FFD700;
+  text-decoration: none;
+  display: block;
+  margin-top: 15px;
+}
+</style>
+  <title>Reset Password</title>
+  <link rel="stylesheet" href="/static/style.css">
+
+  <script>
+    function validateReset() {
+      let oldPassword = document.forms["resetForm"]["old_password"].value;
+      let newPassword = document.forms["resetForm"]["new_password"].value;
+      let confirmPassword = document.forms["resetForm"]["confirm_password"].value;
+
+      if (oldPassword === "" || newPassword === "" || confirmPassword === "") {
+        alert("All fields are required.");
+        return false;
+      }
+
+      if (newPassword !== confirmPassword) {
+        alert("New passwords do not match.");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</head>
+
+<body>
+
+  <div class="login-page">
+
+    <div class="form-box">
+      <h2>Reset Password</h2>
+
+      <form name="resetForm" method="POST" action="/reset" onsubmit="return validateReset()">
+
+        <input type="password" name="old_password" placeholder="Old Password" required>
+
+        <input type="password" name="new_password" placeholder="New Password" required>
+
+        <input type="password" name="confirm_password" placeholder="Confirm New Password" required>
+
+        <button type="submit">Reset Password</button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

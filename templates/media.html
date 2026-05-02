@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<meta name="viewport"; content="device-width,initial-scale=1.0">
+<style>
+.admin-theme {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  min-height: 100vh;
+}
+
+/* Top Navigation */
+.admin-theme .top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 20px;
+
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.admin-theme .top-nav h2 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+/* Nav Links */
+.admin-theme .nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.admin-theme .nav-links a {
+  text-decoration: none;
+  color: #ddd;
+  padding: 8px 14px;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.admin-theme .nav-links a:hover {
+  color: white;
+  background: rgba(255,255,255,0.1);
+}
+
+/* Logout Button */
+.admin-theme .sign-in-btn {
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: black;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+/* Main Layout */
+.admin-theme .main {
+  padding: 30px;
+}
+
+/* Sections */
+.admin-theme .section {
+  margin-bottom: 40px;
+}
+
+.admin-theme .section h3 {
+  color: #FFD700;
+  font-size: 24px;
+  margin-bottom: 15px;
+
+  border-bottom: 2px solid rgba(255,215,0,0.3);
+  padding-bottom: 8px;
+}
+
+/* Media Items */
+.admin-theme .media-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: rgba(255,255,255,0.08);
+  padding: 15px;
+  margin-bottom: 12px;
+
+  border-radius: 10px;
+
+  backdrop-filter: blur(8px);
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* File Names */
+.admin-theme .media-item p {
+  margin: 0;
+  font-weight: bold;
+  color: white;
+}
+
+/* Action Buttons */
+.admin-theme .actions {
+  display: flex;
+  gap: 10px;
+}
+
+.admin-theme .actions a {
+  text-decoration: none;
+
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: black;
+
+  padding: 8px 14px;
+  border-radius: 20px;
+
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.admin-theme .actions a:hover {
+  transform: scale(1.05);
+}
+
+/* Empty Sections */
+.admin-theme .section p {
+  color: #ddd;
+}
+</style>
+  <title>Media Library</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="admin-theme">
+
+  <!-- Top Navigation -->
+  <div class="top-nav">
+    <h2>Zed-Beats Media</h2>
+
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/admin">Admin</a>
+    </div>
+
+    <a href="/login" class="sign-in-btn">Post</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+
+    <!-- MUSIC SECTION -->
+    <section class="section">
+      <h3>Music</h3>
+
+      {% for file in music %}
+        <div class="media-item">
+          <p>{{ file }}</p>
+
+          <div class="actions">
+            <a href="/media/music/{{ file }}">Play</a>
+
+            <a href="{{ url_for('static', filename='uploads/' + file) }}" download>
+              Download
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </section>
+
+    <!-- VIDEO SECTION -->
+    <section class="section">
+      <h3>Videos</h3>
+
+      {% for file in videos %}
+        <div class="media-item">
+          <p>{{ file }}</p>
+
+          <div class="actions">
+            <a href="{{ url_for('static', filename='uploads/' + file) }}" target="_blank">
+              Play
+            </a>
+
+            <a href="{{ url_for('static', filename='uploads/' + file) }}" download>
+              Download
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </section>
+
+  </div>
+
+</body>
+</html>

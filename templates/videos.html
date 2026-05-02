@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<style>
+/* =========================
+   VIDEO PAGE
+========================= */
+
+.admin-theme {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  min-height: 100vh;
+}
+
+/* Top Navigation */
+.admin-theme .top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 20px;
+
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.admin-theme .top-nav h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+/* Nav Links */
+.admin-theme .nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.admin-theme .nav-links a {
+  text-decoration: none;
+  color: #ddd;
+  padding: 8px 14px;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.admin-theme .nav-links a:hover {
+  color: white;
+  background: rgba(255,255,255,0.1);
+}
+
+/* Logout Button */
+.admin-theme .sign-in-btn {
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: black;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+/* Main Layout */
+.admin-theme .main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px 20px;
+}
+
+/* Section */
+.admin-theme .section {
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Title */
+.admin-theme .section h3 {
+  color: #FFD700;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Player Box */
+.player-box {
+  background: rgba(255,255,255,0.08);
+
+  padding: 30px;
+  border-radius: 15px;
+
+  text-align: center;
+
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* File Name */
+.player-box p {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Video Player */
+.player-box video {
+  width: 100%;
+  max-height: 500px;
+
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+/* Buttons */
+.player-box .actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Button Style */
+.player-box .actions a {
+  text-decoration: none;
+
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: black;
+
+  padding: 10px 18px;
+  border-radius: 25px;
+
+  font-weight: bold;
+
+  transition: 0.3s;
+}
+
+.player-box .actions a:hover {
+  transform: scale(1.05);
+}
+</style>
+  <title>Now Playing Video</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="admin-theme">
+
+  <!-- Top Navigation -->
+  <div class="top-nav">
+    <h2>Zed-Beats</h2>
+
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/media">Media</a>
+    </div>
+
+    <a href="/login" class="sign-in-btn">Post</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+
+    <section class="section">
+
+      <h3>Now Playing Video</h3>
+
+      <div class="player-box">
+
+        <p>{{ file }}</p>
+
+        <video controls autoplay>
+          <source src="{{ url_for('static', filename='uploads/' + file) }}" type="video/mp4">
+          Your browser does not support video.
+        </video>
+
+        <div class="actions">
+          <a href="{{ url_for('static', filename='uploads/' + file) }}" download>
+            Download
+          </a>
+
+          <a href="/media">
+            Back to Media
+          </a>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</body>
+</html>
