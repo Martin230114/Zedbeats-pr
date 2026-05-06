@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, session
 import json
 import os
+import cloudinary
+import cloudinary.uploader
 print("FILE:", __file__)
 print("CWD:", os.getcwd())
 print("TEMPLATES EXISTS:", os.path.exists("templates"))
@@ -11,6 +13,11 @@ print("TEMPLATES LIST:", os.listdir("templates"))
 print("RUNNING FROM:", os.getcwd())
 app = Flask(__name__)
 app.secret_key = "Martin230114*"
+cloudinary.config(
+    cloud_name="dbajlwg84",
+    api_key="332143418544659",
+    api_secret="IVMdokuZlEVfTNF4m_AV50Mq53M")
+
 UPLOAD_FOLDER = "static/uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -69,9 +76,12 @@ def upload():
 
     if request.method == "POST":
         file = request.files["file"]
-    os.makedirs("static/uploads", exist_ok=True)
+
+    result = cloudinary.uploader.upload(
+    file,
+    resource_type="auto")
     if file:
-        file.save(os.path.join("static/uploads", file.filename))
+        result = cloudinary.uploader.upload(file, resource_type="auto")
         media_item = {
             "title": title,
             "filename": file.filename,
@@ -98,20 +108,23 @@ def media():
     "filename": file.filename,
     "url": result["secure_url"]}
 
-    files = os.listdir("static/uploads")
+    with open("media.json", "r") as f:
+    files = json.load(f)
     music = [f for f in files if f.endswith("mp3")]
     videos  = [f for f in files if f.endswith("mp4")]
     return render_template("media.html", music=music, videos=videos)
 
 @app.route("/media/music")
 def music():
-    files = os.listdir("static/uploads")
+    with open("media.json", "r") as f:
+    files = json.load(f)
     music = [f for f in files if f.endswith(".mp3")]
     return render_template("music.html")
 
 @app.route("/media/videos")
 def videos():
-    files = os.listdir("static/uploads")
+    with open("media.json", "r") as f:
+    files = json.load(f)
     videos = [f for f in files if f.endswith(".mp4")]
     return render_template("videos.html")
 

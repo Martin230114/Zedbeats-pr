@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "title": "Song One",
+    "filename": "song.mp3",
+    "url": "https://res.cloudinary.com/..."
+  },
+  {
+    "title": "Video One",
+    "filename": "video.mp4",
+    "url": "https://res.cloudinary.com/..."
+  }
+]
