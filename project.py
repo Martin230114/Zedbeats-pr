@@ -41,7 +41,7 @@ def search():
     query = request.args.get("q")
     if not query:
         return redirect("/")
-    
+
     results = [f for f in files if query. lower() in f.lower()]
     return render_templates("search.html", results = results)
 
@@ -99,30 +99,30 @@ def upload():
 @app.route("/media")
 def media():
     with open("media.json", "r") as f:
-    media = json.load(f)
-    media_item = {
-    "title": title,
-    "filename": file.filename,
-    "url": result["secure_url"]}
+        media = json.load(f)
+        media_item = {
+        "title": title,
+        "filename": file.filename,
+        "url": result["secure_url"]}
 
     with open("media.json", "r") as f:
-    files = json.load(f)
-    music = [f for f in files if f.endswith("mp3")]
-    videos  = [f for f in files if f.endswith("mp4")]
+        files = json.load(f)
+        music = [f for f in files if f.endswith("mp3")]
+        videos  = [f for f in files if f.endswith("mp4")]
     return render_template("media.html", music=music, videos=videos)
 
 @app.route("/media/music")
 def music():
     with open("media.json", "r") as f:
-    files = json.load(f)
-    music = [f for f in files if f.endswith(".mp3")]
+        files = json.load(f)
+        music = [f for f in files if f.endswith(".mp3")]
     return render_template("music.html")
 
 @app.route("/media/videos")
 def videos():
     with open("media.json", "r") as f:
-    files = json.load(f)
-    videos = [f for f in files if f.endswith(".mp4")]
+        files = json.load(f)
+        videos = [f for f in files if f.endswith(".mp4")]
     return render_template("videos.html")
 
 @app.route("/media/videos/<filename>")
