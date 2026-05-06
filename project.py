@@ -41,7 +41,7 @@ def search():
     query = request.args.get("q")
     if not query:
         return redirect("/")
-    files = os.listdir("static/uploads")
+    
     results = [f for f in files if query. lower() in f.lower()]
     return render_templates("search.html", results = results)
 
