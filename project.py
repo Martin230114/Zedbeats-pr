@@ -72,12 +72,32 @@ def upload():
     os.makedirs("static/uploads", exist_ok=True)
     if file:
         file.save(os.path.join("static/uploads", file.filename))
+        media_item = {
+            "title": title,
+            "filename": file.filename,
+            "url": result["secure_url"]}
+        # Load existing media
+        with open("media.json", "r") as f:
+            media = json.load(f)
+        # Add new item
+        media.append(media_item)
+        # Save back
+        with open("media.json", "w") as f:
+            json.dump(media, f, indent=4)
+
         return redirect("/media")
 
     return render_template("upload.html")
 
 @app.route("/media")
 def media():
+    with open("media.json", "r") as f:
+    media = json.load(f)
+    media_item = {
+    "title": title,
+    "filename": file.filename,
+    "url": result["secure_url"]}
+
     files = os.listdir("static/uploads")
     music = [f for f in files if f.endswith("mp3")]
     videos  = [f for f in files if f.endswith("mp4")]
