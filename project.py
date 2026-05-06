@@ -18,9 +18,6 @@ cloudinary.config(
     api_key="332143418544659",
     api_secret="IVMdokuZlEVfTNF4m_AV50Mq53M")
 
-UPLOAD_FOLDER = "static/uploads"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
 #---------- Admin storage ----------
 
 def load_admin():
