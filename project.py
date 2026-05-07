@@ -72,30 +72,39 @@ def upload():
         return redirect("/login")
 
     if request.method == "POST":
+        title = request.form["title"]
         file = request.files["file"]
 
-    result = cloudinary.uploader.upload(
-    file,
-    resource_type="auto")
-    if file:
-        result = cloudinary.uploader.upload(file, resource_type="auto")
+        # Upload file to Cloudinary
+        result = cloudinary.uploader.upload(
+            file,
+            resource_type="auto"
+        )
+
+        # DEBUG: Check if Cloudinary returned URL
+        print(result)
+
+        # Create media entry
         media_item = {
             "title": title,
             "filename": file.filename,
-            "url": result["secure_url"]}
-        # Load existing media
+            "url": result["secure_url"]
+        }
+
+        # Load old media list
         with open("media.json", "r") as f:
             media = json.load(f)
-        # Add new item
+
+        # Add new upload
         media.append(media_item)
-        # Save back
+
+        # Save updated media list
         with open("media.json", "w") as f:
             json.dump(media, f, indent=4)
 
         return redirect("/media")
 
     return render_template("upload.html")
-
 @app.route("/media")
 def media():
     with open("media.json", "r") as f:
