@@ -17,7 +17,7 @@ cloudinary.config(
     cloud_name="dbajlwg84",
     api_key="332143418544659",
     api_secret="IVMdokuZlEVfTNF4m_AV50Mq53M")
-    secure=True
+
 #---------- Admin storage ----------
 
 def load_admin():
@@ -66,6 +66,9 @@ def admin():
         return redirect("/")
     return render_template("admin.html")
 
+# =========================
+# ADMIN UPLOAD ROUTE
+# =========================
 @app.route("/admin/upload", methods=["GET", "POST"])
 def upload():
     if not session.get("admin"):
@@ -75,25 +78,27 @@ def upload():
         title = request.form["title"]
         file = request.files["file"]
 
-        # Upload file to Cloudinary
-        result = cloudinary.uploader.upload(file)
-        url = result["secure_url"]
+        # Upload to Cloudinary
+        result = cloudinary.uploader.upload(
+            file,
+            resource_type="auto"
+        )
 
-        # DEBUG: Check if Cloudinary returned URL
-        print(result)
+        # Load existing media list
+        try:
+            with open("media.json", "r") as f:
+                media = json.load(f)
+        except:
+            media = []
 
-        # Create media entry
+        # New media entry
         media_item = {
             "title": title,
             "filename": file.filename,
             "url": result["secure_url"]
         }
 
-        # Load old media list
-        with open("media.json", "r") as f:
-            media = json.load(f)
-
-        # Add new upload
+        # Add without deleting old uploads
         media.append(media_item)
 
         # Save updated media list
@@ -103,27 +108,35 @@ def upload():
         return redirect("/media")
 
     return render_template("upload.html")
+
+
+# =========================
+# MEDIA DISPLAY ROUTE
+# =========================
 @app.route("/media")
 def media():
-    with open("media.json", "r") as f:
-        media = json.load(f)
-        media_item = {
-        "title": title,
-        "filename": file.filename,
-        "url": result["secure_url"]}
+    try:
+        with open("media.json", "r") as f:
+            files = json.load(f)
+    except:
+        files = []
 
-    with open("media.json", "r") as f:
-        files = json.load(f)
-        music = [f for f in files if f.endswith("mp3")]
-        videos  = [f for f in files if f.endswith("mp4")]
-    return render_template("media.html", music=music, videos=videos)
+    # Separate music and videos
+    music = [
+        file for file in files
+        if file["filename"].lower().endswith((".mp3", ".wav", ".ogg"))
+    ]
 
-@app.route("/media/music")
-def music():
-    with open("media.json", "r") as f:
-        files = json.load(f)
-        music = [f for f in files if f.endswith(".mp3")]
-    return render_template("music.html")
+    videos = [
+        file for file in files
+        if file["filename"].lower().endswith((".mp4", ".mov", ".avi", ".mkv"))
+    ]
+
+    return render_template(
+        "media.html",
+        music=music,
+        videos=videos
+    )
 
 @app.route("/media/videos")
 def videos():
