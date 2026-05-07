@@ -17,7 +17,7 @@ cloudinary.config(
     cloud_name="dbajlwg84",
     api_key="332143418544659",
     api_secret="IVMdokuZlEVfTNF4m_AV50Mq53M")
-
+    secure=True
 #---------- Admin storage ----------
 
 def load_admin():
