@@ -75,9 +75,23 @@ def upload():
         return redirect("/login")
 
     if request.method == "POST":
+        print("UPLOAD STARTED")
+        print("FORM:", request.form)
+        print("FILES:", request.files)
         title = request.form["title"]
         file = request.files["file"]
+        print("TITLE:", title)
+        print("FILENAME:", file.filename)
+        try:
+    result = cloudinary.uploader.upload(
+        file,
+        resource_type="auto"
+    )
+    print("UPLOAD RESULT:", result)
 
+except Exception as e:
+    print("CLOUDINARY ERROR:", e)
+    return "Upload failed"
         # Upload to Cloudinary
         result = cloudinary.uploader.upload(
             file,
