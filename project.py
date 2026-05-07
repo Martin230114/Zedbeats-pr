@@ -76,10 +76,8 @@ def upload():
         file = request.files["file"]
 
         # Upload file to Cloudinary
-        result = cloudinary.uploader.upload(
-            file,
-            resource_type="auto"
-        )
+        result = cloudinary.uploader.upload(file)
+        url = result["secure_url"]
 
         # DEBUG: Check if Cloudinary returned URL
         print(result)
