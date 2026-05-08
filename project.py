@@ -83,17 +83,17 @@ def upload():
         print("TITLE:", title)
         print("FILENAME:", file.filename)
         try:
-    result = cloudinary.uploader.upload(
-        file,
-        resource_type="auto"
-    )
-    print("UPLOAD RESULT:", result)
+            result = cloudinary.uploader.upload(
+            file,
+            resource_type="auto"
+        )
+            print("UPLOAD RESULT:", result)
 
-except Exception as e:
-    print("CLOUDINARY ERROR:", e)
-    return "Upload failed"
+        except Exception as e:
+            print("CLOUDINARY ERROR:", e)
+            return "Upload failed"
         # Upload to Cloudinary
-        result = cloudinary.uploader.upload(
+            result = cloudinary.uploader.upload(
             file,
             resource_type="auto"
         )
