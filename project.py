@@ -107,9 +107,9 @@ def upload():
             media = []
 
         media_item = {
-            "title": title,
-            "filename": file.filename,
-            "url": result["secure_url"]
+    "title": title or "Untitled",
+    "filename": file.filename or "",
+    "url": result.get("secure_url", "")
         }
 
         print("MEDIA ITEM:", media_item)
