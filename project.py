@@ -133,19 +133,21 @@ def media():
     try:
         with open("media.json", "r") as f:
             files = json.load(f)
-    except:
+    except Exception as e:
+        print("MEDIA LOAD ERROR:", e)
         files = []
 
-    # Separate music and videos
-    music = [
-        file for file in files
-        if file["filename"].lower().endswith((".mp3", ".wav", ".ogg"))
-    ]
+    music = []
+    videos = []
 
-    videos = [
-        file for file in files
-        if file["filename"].lower().endswith((".mp4", ".mov", ".avi", ".mkv"))
-    ]
+    for file in files:
+        filename = file.get("filename", "").lower()
+
+        if filename.endswith((".mp3", ".wav", ".ogg")):
+            music.append(file)
+
+        elif filename.endswith((".mp4", ".mov", ".avi", ".mkv")):
+            videos.append(file)
 
     return render_template(
         "media.html",
