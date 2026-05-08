@@ -66,9 +66,6 @@ def admin():
         return redirect("/")
     return render_template("admin.html")
 
-# =========================
-# ADMIN UPLOAD ROUTE
-# =========================
 @app.route("/admin/upload", methods=["GET", "POST"])
 def upload():
     if not session.get("admin"):
@@ -76,53 +73,57 @@ def upload():
 
     if request.method == "POST":
         print("UPLOAD STARTED")
+
         print("FORM:", request.form)
         print("FILES:", request.files)
-        title = request.form["title"]
-        file = request.files["file"]
+
+        title = request.form.get("title")
+        file = request.files.get("file")
+
         print("TITLE:", title)
+
+        if not file:
+            print("NO FILE DETECTED")
+            return "No file uploaded"
+
         print("FILENAME:", file.filename)
+
         try:
             result = cloudinary.uploader.upload(
-            file,
-            resource_type="auto"
-        )
+                file,
+                resource_type="auto"
+            )
+
             print("UPLOAD RESULT:", result)
 
         except Exception as e:
             print("CLOUDINARY ERROR:", e)
-            return "Upload failed"
-        # Upload to Cloudinary
-            result = cloudinary.uploader.upload(
-            file,
-            resource_type="auto"
-        )
+            return f"Cloudinary failed: {e}"
 
-        # Load existing media list
         try:
             with open("media.json", "r") as f:
                 media = json.load(f)
         except:
             media = []
 
-        # New media entry
         media_item = {
             "title": title,
             "filename": file.filename,
             "url": result["secure_url"]
         }
 
-        # Add without deleting old uploads
+        print("MEDIA ITEM:", media_item)
+
         media.append(media_item)
 
-        # Save updated media list
         with open("media.json", "w") as f:
             json.dump(media, f, indent=4)
+
+        print("MEDIA SAVED")
 
         return redirect("/media")
 
     return render_template("upload.html")
-
 
 # =========================
 # MEDIA DISPLAY ROUTE
