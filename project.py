@@ -65,7 +65,6 @@ def admin():
     if not session.get("admin"):
         return redirect("/")
     return render_template("admin.html")
-
 @app.route("/admin/upload", methods=["GET", "POST"])
 def upload():
     if not session.get("admin"):
@@ -74,19 +73,15 @@ def upload():
     if request.method == "POST":
         print("UPLOAD STARTED")
 
-        print("FORM:", request.form)
-        print("FILES:", request.files)
-
         title = request.form.get("title")
         file = request.files.get("file")
 
         print("TITLE:", title)
+        print("FILE:", file)
 
         if not file:
-            print("NO FILE DETECTED")
-            return "No file uploaded"
-
-        print("FILENAME:", file.filename)
+            print("NO FILE FOUND")
+            return "No file selected"
 
         try:
             result = cloudinary.uploader.upload(
@@ -94,11 +89,11 @@ def upload():
                 resource_type="auto"
             )
 
-            print("UPLOAD RESULT:", result)
+            print("UPLOAD SUCCESS:", result)
 
         except Exception as e:
-            print("CLOUDINARY ERROR:", e)
-            return f"Cloudinary failed: {e}"
+            print("CLOUDINARY FAILED:", e)
+            return f"Upload failed: {e}"
 
         try:
             with open("media.json", "r") as f:
@@ -107,9 +102,9 @@ def upload():
             media = []
 
         media_item = {
-    "title": title or "Untitled",
-    "filename": file.filename or "",
-    "url": result.get("secure_url", "")
+            "title": title or "Untitled",
+            "filename": file.filename,
+            "url": result.get("secure_url", "")
         }
 
         print("MEDIA ITEM:", media_item)
@@ -119,7 +114,7 @@ def upload():
         with open("media.json", "w") as f:
             json.dump(media, f, indent=4)
 
-        print("MEDIA SAVED")
+        print("MEDIA SAVED SUCCESSFULLY")
 
         return redirect("/media")
 
