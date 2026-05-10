@@ -132,41 +132,75 @@
   color: #ddd;
 }
 </style>
-  <title>Media Library</title>
-  <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZedBeats Media</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
 <body>
 
-    <h1>Music</h1>
+    <header class="navbar">
+        <h1>ZedBeats Media</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/admin">Admin</a>
+            <a href="/search">Search</a>
+        </nav>
+    </header>
 
-    {% if music %}
-        {% for file in music %}
-            <div>
-                <p>{{ file.title }}</p>
-                <audio controls>
-                    <source src="{{ file.url }}">
-                </audio>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>No music uploaded yet.</p>
-    {% endif %}
+    <main class="media-container">
 
-    <h1>Videos</h1>
+        <!-- MUSIC SECTION -->
+        <section class="music-section">
+            <h2>Music</h2>
 
-    {% if videos %}
-        {% for file in videos %}
-            <div>
-                <p>{{ file.title }}</p>
-                <video controls width="300">
-                    <source src="{{ file.url }}">
-                </video>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>No videos uploaded yet.</p>
-    {% endif %}
+            {% if music %}
+                <div class="media-grid">
+                    {% for file in music %}
+                        <div class="media-card">
+                            <h3>{{ file.title }}</h3>
+                            <p>{{ file.filename }}</p>
+
+                            <audio controls>
+                                <source src="{{ file.url }}" type="audio/mpeg">
+                                Your browser does not support audio.
+                            </audio>
+
+                            <a href="/playmusic?url={{ file.url }}&title={{ file.title }}">Play Fullscreen</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No music uploaded yet.</p>
+            {% endif %}
+        </section>
+
+        <!-- VIDEO SECTION -->
+        <section class="video-section">
+            <h2>Videos</h2>
+
+            {% if videos %}
+                <div class="media-grid">
+                    {% for file in videos %}
+                        <div class="media-card">
+                            <h3>{{ file.title }}</h3>
+                            <p>{{ file.filename }}</p>
+
+                            <video controls width="300">
+                                <source src="{{ file.url }}">
+                                Your browser does not support video.
+                            </video>
+
+                            <a href="/playvideo?url={{ file.url }}&title={{ file.title }}">Watch Fullscreen</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No videos uploaded yet.</p>
+            {% endif %}
+        </section>
+
+    </main>
 
 </body>
 </html>
